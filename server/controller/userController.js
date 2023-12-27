@@ -7,9 +7,8 @@ module.exports = {
     try {
       req.body.password = await bcrypt.hash(req.body.password, 10);
       const newUser = await users.create(req.body);
-      console.log(newUser);
       if (newUser) {
-        const accessToken = jwt.sign({ user: newUser._id }, "hiiiii", {
+        const accessToken = jwt.sign({ user: newUser._id }, process.env.SECRET_KEY_user, {
           expiresIn: "30d",
         });
         res.cookie("userJwt", accessToken, {
@@ -46,7 +45,7 @@ module.exports = {
       if (passwordStatus) {
         const token = req?.cookies?.userJwt;
         if (!token) {
-            const accessToken = jwt.sign({ user: user._id }, "hiiiii", {
+            const accessToken = jwt.sign({ user: user._id },process.env.SECRET_KEY_user, {
                 expiresIn: "30d",
               });
               res.cookie("userJwt", accessToken, {
@@ -68,7 +67,7 @@ module.exports = {
   auth : async (req, res) => {
     const token = req?.cookies?.userJwt;
     if (token) {
-      jwt.verify(token,'hiiiii', async (err, decoded) => {
+      jwt.verify(token,process.env.SECRET_KEY_user, async (err, decoded) => {
         if (err) {
           res.json({ success: false, message: err });
         } else {
@@ -83,10 +82,8 @@ module.exports = {
   },
   profilePic : async (req,res)=>{
     const userId = req.params.id
-    console.log(req.file.filename)
     try {
         const user = await users.findOne({ _id: userId });
-    console.log(user,'========')
         if (user) {
           const newuser = await users.findByIdAndUpdate(user._id,{profilePic:req.file.filename})
           res.json({ success: true, message: 'Profile picture updated successfully',newuser });
@@ -111,7 +108,6 @@ module.exports = {
     }
   },
   logout: (req, res) => {
-    console.log('i am here in logout')
     res.clearCookie('userJwt');
     res.json({ success: true});
   },
