@@ -4,7 +4,7 @@ import { useFormData } from "../../hooks/customHooks";
 import { useSelector, useDispatch } from "react-redux";
 import { userSignup } from "../../actions/userActions";
 
-const SignupForm = ({ setErrorMessage }) => {
+const SignupForm = ({ setErrorMessage ,setSuccessMessage , action}) => {
   const dispatch = useDispatch();
   const [formData, setFormData, handleChange] = useFormData();
   const [errors, setErrors] = useState({});
@@ -58,7 +58,7 @@ const SignupForm = ({ setErrorMessage }) => {
     e.preventDefault();
 
     if (validateForm()) {
-      dispatch(userSignup(formData, setErrorMessage, navigate));
+      dispatch(action(formData,setSuccessMessage, setErrorMessage, navigate));
     } else {
       setErrorMessage("Please fix the errors in the form.");
 

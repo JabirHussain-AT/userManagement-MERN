@@ -3,9 +3,10 @@ import { FaEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { userEdit } from "../../actions/userActions";
 import { useNavigate } from "react-router-dom";
+import unknown from '../../assets/unknown.png'
 
 const Card = ({ userData, openModal }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [newName, setNewName] = useState("");
   const [editStatus, setEditStatus] = useState(false);
@@ -32,7 +33,7 @@ const Card = ({ userData, openModal }) => {
 
   const handleSubmit = () => {
     if (newName.trim() !== "") {
-      dispatch(userEdit({newName, userData, handleSuccess, handleError}));
+      dispatch(userEdit({ newName, userData, handleSuccess, handleError }));
     } else {
       setSuccessMessage("");
       setErrorMessage("Name cannot be empty!");
@@ -45,13 +46,18 @@ const Card = ({ userData, openModal }) => {
         <div className="flex items-center mb-6">
           <div className="mr-8">
             <img
-              src={`http://localhost:3002/uploads/${userData?.profilePic}`}
+              src={
+                !userData?.profilePic ?`${unknown}`: `http://localhost:3002/uploads/${userData?.profilePic}` 
+               
+              }
               alt="Profile"
               className="w-20 h-20 rounded-full object-cover shadow-md cursor-pointer"
               onClick={openModal}
             />
+
             <div className="text-center mt-2" onClick={openModal}>
-              <FaEdit className="cursor-pointer"  />Edit Profile Picture
+              <FaEdit className="cursor-pointer" />
+              Edit Profile Picture
             </div>
           </div>
 
@@ -90,8 +96,11 @@ const Card = ({ userData, openModal }) => {
             Edit user name
           </button>
         )}
-        <button onClick={()=>navigate('/')} className="bg-black text-white px-4 ml-5 py-2 rounded-md">
-            Back to Home
+        <button
+          onClick={() => navigate("/")}
+          className="bg-black text-white px-4 ml-5 py-2 rounded-md"
+        >
+          Back to Home
         </button>
       </div>
     </>

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/customHooks";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogin } from "../../actions/userActions";
 
-const LoginForm = ({setErrorMessage}) => {
+
+const LoginForm = ({setErrorMessage,dispatchLogin}) => {
   const dispatch = useDispatch();
   const [formData, setFormData, handleChange] = useFormData();
   const [emailState, setEmailState] = useState(false);
@@ -45,7 +45,7 @@ const LoginForm = ({setErrorMessage}) => {
     }
 
     if (email.trim() && validEmailPattern && password.trim() && validPassword) {
-      dispatch(userLogin({ email, password, handleError, navigate }));
+      dispatch(dispatchLogin({ email, password, handleError, navigate }));
     }
   };
 
