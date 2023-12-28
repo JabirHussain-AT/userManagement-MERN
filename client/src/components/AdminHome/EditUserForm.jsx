@@ -1,16 +1,13 @@
-// EditUserForm.js
 import React, { useState, useEffect } from 'react';
 
 const EditUserForm = ({ user, onSubmit, onCancel }) => {
   const [editedUserName, setEditedUserName] = useState('');
 
   useEffect(() => {
-    // Set the initial edited user name when the component mounts
     setEditedUserName(user?.userName || '');
   }, [user]);
 
   const handleSubmit = () => {
-    // Handle form submission and pass the edited data to the parent component
     onSubmit(editedUserName);
   };
 

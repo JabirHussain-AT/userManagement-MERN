@@ -91,7 +91,7 @@ const AdminHome = () => {
             />
             <FaSearch className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
-          <button onClick={handleLogout} className='py-2 px-5 bg-black text-white text-center rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:shadow-outline-green'>Logout</button>
+          <button onClick={handleLogout} className='py-2 px-5 mr-5 bg-black text-white text-center rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:shadow-outline-green'>Logout</button>
           <button onClick={handleAddUser} className='py-2 px-5 bg-green-600 text-white text-center rounded-md transition duration-300 ease-in-out hover:bg-green-700 focus:outline-none focus:shadow-outline-green'>Add User</button>
         </div>
       </div>
@@ -129,7 +129,7 @@ const AdminHome = () => {
                     <>
                       <button
                         onClick={() => handleEdit(user._id)}
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-blue-500 mr-5 hover:text-blue-700"
                       >
                         <FaEdit />
                       </button>
